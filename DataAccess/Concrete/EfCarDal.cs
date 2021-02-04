@@ -35,6 +35,7 @@ namespace DataAccess.Concrete
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
+                Console.WriteLine("Araba Eklendi.");
             }
         }
 
@@ -45,6 +46,7 @@ namespace DataAccess.Concrete
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
+                Console.WriteLine("Araba Güncellendi.");
             }
         }
 
@@ -55,6 +57,7 @@ namespace DataAccess.Concrete
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
                 context.SaveChanges();
+                Console.WriteLine("Arana Silindi.");
             }
         }
     }

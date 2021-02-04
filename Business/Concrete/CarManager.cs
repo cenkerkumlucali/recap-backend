@@ -7,43 +7,40 @@ using Entities.Concrete;
 
 namespace Business.Concrete
 {
-    public class CarManager:ICarService
+    public class CarManager : ICarService
     {
-       ICarDal _carDal;
+        ICarDal _carDal;
 
-       public CarManager(ICarDal ıCarDal)
-       {
-           _carDal = ıCarDal;
-       }
-       public List<Car> GetAll()
-       {
-           return _carDal.GetAll();
+        public CarManager(ICarDal ıCarDal)
+        {
+            _carDal = ıCarDal;
+        }
+        public List<Car> GetAll()
+        {
+            
+            return _carDal.GetAll();
+            
 
-       }
-
-       public Car GerCarById(int id)
-       {
-           return _carDal.Get(c => c.Id == id);
-       }
-
-       public List<Car> GetAllByCategoryId(int id)
-       {
-           throw new NotImplementedException();
-       }
-
-       public List<Car> GetByDailyPrice(decimal min, decimal max)
-       {
-           throw new NotImplementedException();
-       }
-
-       public List<Car> GetCarsByBrandId(int brandId)
-       {
-           return _carDal.GetAll(c => c.BrandId == brandId);
-       }
-
-       public List<Car> GetCarsByColorId(int colorId)
-       {
-           return _carDal.GetAll(c => c.ColorId == colorId);
-       }
+        }
+        public Car GerCarById(int id)
+        {
+            return _carDal.Get(c => c.Id == id);
+        }
+        public List<Car> GetAllByCategoryId(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public List<Car> GetByDailyPrice(decimal min, decimal max)
+        {
+            throw new NotImplementedException();
+        }
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            return _carDal.GetAll(c => c.BrandId == brandId);
+        }
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _carDal.GetAll(c => c.ColorId == colorId);
+        }
     }
 }
