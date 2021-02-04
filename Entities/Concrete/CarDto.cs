@@ -6,7 +6,7 @@ namespace Entities.Concrete
 {
     public class CarDto
     { 
-        public int CalorId { get; set; }
-        public string CalorName { get; set; }
+        public int ColorId { get; set; }
+        public string ColorName { get; set; }
     }
 }
