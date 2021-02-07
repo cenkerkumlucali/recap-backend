@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Entities;
 
 namespace Entities.Concrete
 {
-    public class CarDto
-    { 
+    public class CarDto:IEntity
+    {
         public int ColorId { get; set; }
         public string ColorName { get; set; }
     }
