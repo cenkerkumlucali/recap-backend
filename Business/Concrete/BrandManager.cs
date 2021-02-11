@@ -2,51 +2,50 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
 namespace Business.Concrete
 {
-    public class BrandManager:IBrandService
+    public class BrandManager : IBrandService
     {
-         IBrandDal _brandDal;
+        IBrandDal _brandDal;
 
-         public BrandManager(IBrandDal ıBrandDal)
-         {
-             _brandDal = ıBrandDal;
-
-         }
-        public List<Brand> GetAll()
+        public BrandManager(IBrandDal ıBrandDal)
         {
-            return _brandDal.GetAll();
+            _brandDal = ıBrandDal;
+
         }
 
-        public void Add(Brand brand)
+        public IDataResult<List<Brand>> GetAll()
         {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+        }
+
+        public IResult Add(Brand brand)
+        {
+            if (brand.BrandName.Length<2)
+            {
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
             _brandDal.Add(brand);
+            return new SuccessResult(Messages.CarAdded);
         }
 
-        public void Deleted(Brand brand)
+        public IDataResult<Brand> GetCarById(int id)
         {
-            _brandDal.Delete(brand);
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id));
         }
 
-        public void Update(Brand brand)
+        public IDataResult<List<Brand>> GetByBrandName(string name)
         {
-            _brandDal.Update(brand);
-        }
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandName == name));
 
-        public Brand GetCarById(int id)
-        {
-            return _brandDal.Get(b => b.BrandId == id);
-        }
 
-        public List<Brand> GetByBrandName(string name)
-        {
-            return _brandDal.GetAll(b => b.BrandName == name);
         }
-
-        public Brand GetByBrandName()
+        public IDataResult<Brand> GetByBrandName()
         {
             throw new NotImplementedException();
         }
