@@ -17,7 +17,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //RentalGetAll(); //Rental Listeler
-            //RentalAdded(); //Rental ekler
+            RentalAdded(); //Rental ekler
 
             //CustomerAdded(); //Müşteri Ekler
 
@@ -69,11 +69,11 @@ namespace ConsoleUI
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             rentalManager.Add(new Rental()
             {
-                Id = 2,
-                CustomerId = 1,
-                CarId = 2,
-                RentDate = new DateTime(2021, 2, 06),
-                ReturnDate = new DateTime(2021, 03, 06),
+                Id = 3,
+                CustomerId = 2,
+                CarId = 1,
+                RentDate = new DateTime(2021, 2, 09),
+                
             });
         }
 
@@ -130,34 +130,36 @@ namespace ConsoleUI
 
         private static void ColorDeleted()
         {
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            colorManager.Delete(new Color()
+            EfColorDal efColorDal=new EfColorDal();
+            Color color =new Color()
             {
                 ColorId = 7
-            });
+            };
+            efColorDal.Delete(color);
         }
 
         private static void ColorUpdated()
         {
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            colorManager.Update(new Color()
+            EfColorDal efColorDal=new EfColorDal();
+            Color color = new Color()
             {
                 ColorId = 7,
                 ColorName = "Mor"
-            });
+            };
+            efColorDal.Update(color);
         }
 
         private static void ColorGetById()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
             var result = colorManager.GetById(2);
-            Console.WriteLine(result.ColorName);
+            Console.WriteLine(result.Data);
         }
 
         private static void ColorGetAll()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var c in colorManager.GetAll())
+            foreach (var c in colorManager.GetAll().Data)
             {
                 Console.WriteLine(c.ColorId + "--" + c.ColorName);
             }

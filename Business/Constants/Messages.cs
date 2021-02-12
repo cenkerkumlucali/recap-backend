@@ -11,5 +11,7 @@ namespace Business.Constants
         public static string DailyPriceInvalid = "Arabanın günlük fiyatı 0 olamaz";
         public static string CarNameInvalid = "Araba ismi geçersiz";
         public static string MaintenanceTime="Bakımda.";
+        public static string CategoryAdded = "Kategori eklendi";
+        public static string ColorAdded="Renk eklendi";
     }
 }

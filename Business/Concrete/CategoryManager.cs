@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
 namespace Business.Concrete
 {
-    public class CategoryManager:ICategoryService
+    public class CategoryManager : ICategoryService
     {
         ICategoryDal _categoryDal;
 
@@ -15,29 +17,21 @@ namespace Business.Concrete
         {
             _categoryDal = ıCategoryDal;
         }
-        public List<Category> GetAll()
+
+        public IDataResult<List<Category>> GetAll()
         {
-            return _categoryDal.GetAll();
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
         }
 
-        public void Add(Category category)
+        public IResult Add(Category category)
         {
             _categoryDal.Add(category);
+            return new SuccessResult(Messages.CategoryAdded);
         }
 
-        public void Delete(Category category)
+        public IDataResult<Category> GetNameById(int categoryId)
         {
-           _categoryDal.Delete(category);
-        }
-
-        public void Update(Category category)
-        {
-            _categoryDal.Update(category);
-        }
-
-        public Category GetNameById(int categoryId)
-        {
-            return _categoryDal.Get(c => c.CategoryId == categoryId);
+            return new SuccessDataResult<Category>(_categoryDal.Get(c => c.CategoryId == categoryId));
         }
     }
 }
