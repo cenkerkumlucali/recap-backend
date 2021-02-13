@@ -26,22 +26,17 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if (car.DailyPrice == 0)
+            if (car.DailyPrice == 0 )
             {
                 return new ErrorResult(Messages.DailyPriceInvalid);
             }
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
-
         }
 
         public IDataResult<Car> GetCarById(int id)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id));
-        }
-        public IDataResult<List<Car>> GetAllByCategoryId(int id)
-        {
-            throw new NotImplementedException();
         }
         public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
         {
@@ -54,7 +49,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            if (DateTime.Now.Hour==14)
+            if (DateTime.Now.Hour == 14)
             {
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
             }

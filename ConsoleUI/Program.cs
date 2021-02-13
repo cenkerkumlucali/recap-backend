@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading.Channels;
 using Business.Concrete;
 using Business.Constants;
 using DataAccess.Abstract;
@@ -16,6 +17,34 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //RentalManager rentalManager=new RentalManager(new EfRentalDal());
+            //Console.Write("Araba numarasını giriniz :");
+            //int carId = Convert.ToInt32(Console.ReadLine());
+            //Console.Write("Müşteri numaranızı giriniz :");
+            //int customerId = Convert.ToInt32(Console.ReadLine());
+            //Console.Write("Başlangıç tarihini giriniz :");
+            //DateTime rentDate = Convert.ToDateTime(Console.ReadLine());
+            //Console.Write("Bitiş tarihini giriniz :");
+            //DateTime? returnDate = Convert.ToDateTime(Console.ReadLine());
+            //var result = rentalManager.Add(new Rental()
+            //{
+            //    CustomerId = customerId,
+            //    CarId = carId,
+            //    RentDate = rentDate,
+            //    ReturnDate = returnDate,
+            //});
+            //if (result.Success==true)
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
+            //BrandConsoleAdded(); //Konsoldan ekleme yapar.
+            //ColorConsoleAdded(); //Konsoldan ekleme yapar.
+            /*CarConsoleAdded();*/ //Konsoldan ekleme yapar.
+
             //RentalGetAll(); //Rental Listeler
             RentalAdded(); //Rental ekler
 
@@ -40,7 +69,7 @@ namespace ConsoleUI
             //GetByBrandName(); //Araç ismine göre idsini getirir
             //BrandUpdated(); // Markayı Günceller
             //BrandDeleted(); //Markayı siler.
-            /*BrandAdded();*/ //Markayı ekler.
+            /*BrandAdded(); //Markayı ekler.
             /*BrandGetAll();*/ //Markayı getirir.
 
             /*CarGetAll();*/ //Arabaları getirir.
@@ -55,6 +84,65 @@ namespace ConsoleUI
             Console.ReadLine();
         }
 
+        private static void BrandConsoleAdded()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            Console.Write("Araba ismini giriniz :");
+            string brandName = Console.ReadLine();
+            var result = brandManager.Add(new Brand() {BrandName = brandName});
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void ColorConsoleAdded()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            Console.Write("Renk giriniz :");
+            string colorName = Console.ReadLine();
+            var result = colorManager.Add(new Color() {ColorName = colorName});
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void CarConsoleAdded()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.Write("Marka numarasını giriniz :");
+            int brandId = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Renk numarasını giriniz :");
+            int colorId = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Model yılını giriniz :");
+            int modelYear = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Günlük satış fiyatını giriniz :");
+            int dailyPrice = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Açıklamayı giriniz :");
+            string description = Console.ReadLine();
+            var result = carManager.Add(new Car()
+            {
+                BrandId = brandId,
+                ColorId = colorId,
+                ModelYear = modelYear,
+                DailyPrice = dailyPrice,
+                Description = description
+            });
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
         private static void RentalGetAll()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
@@ -67,14 +155,22 @@ namespace ConsoleUI
         private static void RentalAdded()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            rentalManager.Add(new Rental()
+           var result= rentalManager.Add(new Rental()
             {
-                Id = 3,
-                CustomerId = 2,
                 CarId = 1,
+                CustomerId = 2,
                 RentDate = new DateTime(2021, 2, 09),
+                ReturnDate = new DateTime(2021,02,12)
                 
             });
+           if (result.Success == true)
+           {
+                Console.WriteLine(result.Message);
+           }
+           else
+           {
+               Console.WriteLine(result.Message);
+           }
         }
 
         private static void CustomerAdded()
@@ -331,8 +427,8 @@ namespace ConsoleUI
                 CarId = 11,
                 BrandId = 1,
                 ColorId = 1,
-                DailyPrice = 0,
-                Description = "175HP",
+                DailyPrice = 10,
+                Description = "1",
                 ModelYear = 2015
             });
         }
