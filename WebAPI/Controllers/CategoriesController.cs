@@ -6,45 +6,37 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarsController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
-        ICarService _carService;
-        public CarsController(ICarService carService)
+        private ICategoryService _categoryService;
+
+        public CategoriesController(ICategoryService categoryService)
         {
-            _carService = carService;
+            _categoryService = categoryService;
         }
+
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carService.GetAll();
+            var result = _categoryService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
-        {
-            var result = _carService.GetCarById(id);
-            if (result.Success)
-            {
-                return Ok(result.Data);
             }
 
             return BadRequest(result);
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(Category category)
         {
-            var result = _carService.Add(car);
+            var result = _categoryService.Add(category);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,26 +46,27 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(Category category)
         {
-            var result = _carService.Delete(car);
+            var result = _categoryService.Delete(category);
             if (result.Success)
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Car car)
+        public IActionResult Update(Category category)
         {
-            var result = _carService.Update(car);
+            var result = _categoryService.Update(category);
             if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
 
+            return BadRequest(result);
         }
     }
 }

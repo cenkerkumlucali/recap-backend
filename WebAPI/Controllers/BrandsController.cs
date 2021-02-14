@@ -5,26 +5,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrete;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarsController : ControllerBase
+    public class BrandsController : ControllerBase
     {
-        ICarService _carService;
-        public CarsController(ICarService carService)
-        {
-            _carService = carService;
-        }
-        [HttpGet("getall")]
+         IBrandService _brandService;
+
+         public BrandsController(IBrandService brandService)
+         {
+             _brandService = brandService;
+         }
+
+         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carService.GetAll();
+            var result = _brandService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Add(Brand brand)
+        {
+            var result = _brandService.Add(brand);
+            if (result.Success)
+            {
+                return Ok(result);
+
             }
             return BadRequest(result);
         }
@@ -32,19 +48,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _carService.GetCarById(id);
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-
-            return BadRequest(result);
-        }
-
-        [HttpPost("add")]
-        public IActionResult Add(Car car)
-        {
-            var result = _carService.Add(car);
+            var result = _brandService.GetCarById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,26 +58,26 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(Brand brand)
         {
-            var result = _carService.Delete(car);
+            var result = _brandService.Delete(brand);
             if (result.Success)
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Car car)
+        public IActionResult Update(Brand brand)
         {
-            var result = _carService.Update(car);
+            var result = _brandService.Update(brand);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
-
         }
     }
 }

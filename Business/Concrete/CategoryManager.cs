@@ -29,6 +29,18 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CategoryAdded);
         }
 
+        public IResult Delete(Category category)
+        {
+            _categoryDal.Delete(category);
+            return new SuccessResult(Messages.CategoryDeleted);
+        }
+
+        public IResult Update(Category category)
+        {
+           _categoryDal.Update(category);
+           return new SuccessResult(Messages.CategoryUpdated);
+        }
+
         public IDataResult<Category> GetNameById(int categoryId)
         {
             return new SuccessDataResult<Category>(_categoryDal.Get(c => c.CategoryId == categoryId));
