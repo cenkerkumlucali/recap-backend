@@ -14,5 +14,7 @@ namespace Business.Constants
         public static string CategoryAdded = "Kategori eklendi";
         public static string ColorAdded="Renk eklendi";
         public static string RentalAddedError="Araba şuan mevcut değil";
+        public static string CarDeleted="Araba silindi";
+        public static string CarUpdate="Araba güncellendi";
     }
 }
