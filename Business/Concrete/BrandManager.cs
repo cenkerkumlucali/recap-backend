@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Core.Aspect.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -23,13 +24,9 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
-
+        [ValidationAspect(typeof(Brand))]
         public IResult Add(Brand brand)
         {
-            if (brand.BrandName.Length<2)
-            {
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
             _brandDal.Add(brand);
             return new SuccessResult(Messages.CarAdded);
         }

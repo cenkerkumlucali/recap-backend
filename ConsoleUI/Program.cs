@@ -17,6 +17,11 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            EfRentalDal rentalDal=new EfRentalDal();
+            foreach (var r in rentalDal.GetCarDetails())
+            {
+                Console.WriteLine(r.UserName);
+            }
             //RentalManager rentalManager=new RentalManager(new EfRentalDal());
             //Console.Write("Araba numarasını giriniz :");
             //int carId = Convert.ToInt32(Console.ReadLine());
@@ -46,7 +51,7 @@ namespace ConsoleUI
             /*CarConsoleAdded();*/ //Konsoldan ekleme yapar.
 
             //RentalGetAll(); //Rental Listeler
-            RentalAdded(); //Rental ekler
+            /*RentalAdded();*/ //Rental ekler
 
             //CustomerAdded(); //Müşteri Ekler
 
@@ -73,8 +78,8 @@ namespace ConsoleUI
             /*BrandGetAll();*/ //Markayı getirir.
 
             /*CarGetAll();*/ //Arabaları getirir.
-            /*GetCarDetails();*/ //Arabanın detaylarını getirir.
-                                 //GetByDailyPrice(carManager); //Aracın fiyat filtrelemesi yapmak.
+           /* GetCarDetails();*/ //Arabanın detaylarını getirir.
+                             //GetByDailyPrice(carManager); //Aracın fiyat filtrelemesi yapmak.
             /*CarUpdated();*/ //Aracı Güncellemek için commenti kaldır.
             /* CarDeleted();*/ //Aracı Silmek için commenti kaldır.
             /*CarAdded();*/ //Araç Eklemek için commenti kaldır.

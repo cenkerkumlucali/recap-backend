@@ -28,7 +28,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  CustomerName = cu.CompanyName,
                                  ReturnDate = r.ReturnDate,
                                  RentalId = r.Id,
-                                 UserName = u.FirstName + " " + u.LastName,
+                                 UserName = u.FirstName + "-" + u.LastName,
                                  RentDate = r.RentDate
 
                              };
