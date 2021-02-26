@@ -17,11 +17,12 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            EfRentalDal rentalDal=new EfRentalDal();
-            foreach (var r in rentalDal.GetCarDetails())
-            {
-                Console.WriteLine(r.UserName);
-            }
+            
+            //EfRentalDal rentalDal=new EfRentalDal();
+            //foreach (var r in rentalDal.GetCarDetails())
+            //{
+            //    Console.WriteLine(r.UserName);
+            //}
             //RentalManager rentalManager=new RentalManager(new EfRentalDal());
             //Console.Write("Araba numarasını giriniz :");
             //int carId = Convert.ToInt32(Console.ReadLine());
