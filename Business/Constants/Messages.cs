@@ -39,5 +39,6 @@ namespace Business.Constants
         public static string DeleteCarImageMessage="Araç resmi başarıyla silindi";
         public static string ImagesAdded="Resim eklendi.";
         public static string FailAddedImageLimit = "Resim limitine erişildi!";
+        public static string CarImageLimitExceeded;
     }
 }

@@ -16,14 +16,59 @@ namespace WebAPI.Controllers
     public class ImagesController : ControllerBase
     {
         private IImagesService _imagesService;
-        public static IWebHostEnvironment _webHostEnvironment;
 
-        public ImagesController(IImagesService imagesService,IWebHostEnvironment webHostEnvironment)
+        public ImagesController(IImagesService imagesService)
         {
             _imagesService = imagesService;
-            _webHostEnvironment = webHostEnvironment;
         }
 
+        [HttpPost("add")]
+        public IActionResult Add([FromForm(Name = ("Image"))] IFormFile file, [FromForm] Images images)
+        {
+            var result = _imagesService.Add(file, images);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("delete")]
+        public IActionResult Delete([FromForm(Name = ("Id"))] int Id)
+        {
+
+            var carImage = _imagesService.Get(Id).Data;
+
+            var result = _imagesService.Delete(carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("update")]
+        public IActionResult Update([FromForm(Name = ("Image"))] IFormFile file, [FromForm(Name = ("Id"))] int Id)
+        {
+            var carImage = _imagesService.Get(Id).Data;
+            var result = _imagesService.Update(file, carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
+        {
+            var result = _imagesService.Get(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
@@ -33,10 +78,10 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-
             return BadRequest(result);
         }
-        [HttpGet("getimagesbyid")]
+
+        [HttpGet("getimagesbycarid")]
         public IActionResult GetImagesById(int id)
         {
             var result = _imagesService.GetImagesByCarId(id);
@@ -47,83 +92,6 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(Images images)
-        {
-            var result = _imagesService.Add(images,".jpeg");
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-        [HttpPost("add2")]
-        public async Task<IActionResult> AddAsync([FromForm(Name = ("Image"))] IFormFile file, [FromForm] Images images)
-        {
-            System.IO.FileInfo ff = new System.IO.FileInfo(file.FileName);
-            string fileExtension = ff.Extension;
-
-            var path = Path.GetTempFileName();
-            if (file.Length > 0)
-                using (var stream = new FileStream(path, FileMode.Create))
-                    await file.CopyToAsync(stream);
-
-            var carimage = new Images { CarId = images.CarId, ImagePath = path, Date = DateTime.Now };
-
-
-            var result = _imagesService.Add(carimage, fileExtension);
-
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-        public class FileUpload
-        {
-            public IFormFile files { get; set; }
-
-            public IFormFile carid { get; set; }
-        }
-
-        [HttpPost("add3")]
-        public async Task<string> Add3([FromForm] FileUpload file, [FromForm] Images carImage)
-        {
-
-
-            System.IO.FileInfo ff = new System.IO.FileInfo(file.files.FileName);
-            string fileExtension = ff.Extension;
-
-
-            var createdUniqueFilename = Guid.NewGuid().ToString("N")
-                                        + "_" + DateTime.Now.Month + "_"
-                                        + DateTime.Now.Day + "_"
-                                        + DateTime.Now.Year + fileExtension;
-
-
-            string path = "";
-            if (!Directory.Exists(_webHostEnvironment.WebRootPath + "\\uploads\\"))
-            {
-                Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\uploads\\");
-            }
-            using (FileStream fs = System.IO.File.Create(_webHostEnvironment.WebRootPath + "\\uploads\\" + createdUniqueFilename))
-            {
-                await file.files.CopyToAsync(fs);
-
-                path = _webHostEnvironment.WebRootPath + "\\uploads\\" + createdUniqueFilename;
-
-                fs.Flush();
-            }
-
-
-            await AddAsync(file.files, carImage);
-
-            return "\\uploads\\" + createdUniqueFilename;
-
-
-        }
 
     }
 }
