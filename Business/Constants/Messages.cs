@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Entities.DTOs;
+﻿using Core.Entities.Concrete;
 
 namespace Business.Constants
 {
@@ -39,6 +36,13 @@ namespace Business.Constants
         public static string DeleteCarImageMessage="Araç resmi başarıyla silindi";
         public static string ImagesAdded="Resim eklendi.";
         public static string FailAddedImageLimit = "Resim limitine erişildi!";
-        public static string CarImageLimitExceeded;
+        public static string CarImageLimitExceeded="Arabaya resim ekleme limitine ulaşıldı";
+        public static string UserNotFound="Kullanıcı bulunamadı.";
+        public static string PasswordError="Parola hatası.";
+        public static string SuccessfulLogin="Giriş başarılı";
+        public static string UserAlreadyExist="Bu kullanıcı zaten mevcut";
+        public static string UserRegistered="Kullanıcı başarıyla kaydedildi.";
+        public static string AccessTokenCreated="Access Token başarıyla oluşturuldu";
+        public static string AuthorizationDenied = "Yetkiniz yok.";
     }
 }

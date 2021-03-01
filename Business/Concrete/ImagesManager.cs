@@ -12,9 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using Core.Aspect.Autofac.Validation;
-using Core.Utilities.Results;
 
 namespace Business.Concrete
 {

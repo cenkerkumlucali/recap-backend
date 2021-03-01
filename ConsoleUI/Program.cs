@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Channels;
 using Business.Concrete;
-using Business.Constants;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
-using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 
 using Entities.Concrete;
@@ -192,14 +188,6 @@ namespace ConsoleUI
             }
         }
 
-        private static void UserGetAll()
-        {
-            UserManager userManager = new UserManager(new EfUserDal());
-            foreach (var user in userManager.GetAll().Data)
-            {
-                Console.WriteLine(user.Id);
-            }
-        }
 
         private static void UserAdded()
         {
@@ -209,7 +197,6 @@ namespace ConsoleUI
                 FirstName = "Cenker",
                 LastName = "Kumlucalı",
                 Email = "cenkerkumlucali0@gmail.com",
-                Password = "123123"
             });
         }
 

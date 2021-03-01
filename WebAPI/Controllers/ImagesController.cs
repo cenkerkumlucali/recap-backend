@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Hosting;
 
 namespace WebAPI.Controllers
 {
@@ -65,7 +59,7 @@ namespace WebAPI.Controllers
             var result = _imagesService.Get(id);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Data);
             }
             return BadRequest(result);
         }

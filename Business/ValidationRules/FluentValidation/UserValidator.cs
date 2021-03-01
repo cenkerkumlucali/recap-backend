@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using FluentValidation;
 
@@ -18,8 +16,6 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u => u.Email).NotEmpty().WithMessage("E-mail boş geçilemez");
             RuleFor(u => u.Email).EmailAddress().When( u=>!string.IsNullOrEmpty(u.Email));
             RuleFor(u => u.Email).Must(IsEmailValid);
-            RuleFor(u => u.Password).NotEmpty();
-            RuleFor(u => u.Password).Must(IsPasswordValid).WithMessage("Parolanız en az sekiz karakter, en az bir harf ve bir sayı içermelidir!");
         }
         private bool IsEmailValid(string arg)
         {
@@ -27,10 +23,5 @@ namespace Business.ValidationRules.FluentValidation
             return regex.IsMatch(arg);
         }
 
-        private bool IsPasswordValid(string arg)
-        {
-            Regex regex=new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
-            return regex.IsMatch(arg);
-        }
     }
 }
