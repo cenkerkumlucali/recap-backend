@@ -14,7 +14,7 @@ using Core.Utilities.Security.Encyption;
 namespace Core.Utilities.Security.JWT
 {
     public class JwtHelper : ITokenHelper
-    {
+    { 
         public IConfiguration Configuration { get; }
         private TokenOptions _tokenOptions;
         private DateTime _accessTokenExpiration;
@@ -40,11 +40,12 @@ namespace Core.Utilities.Security.JWT
             };
 
         }
-
+        
         public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user,
             SigningCredentials signingCredentials, List<OperationClaim> operationClaims)
         {
-            var jwt = new JwtSecurityToken(
+            var jwt = new JwtSecurityToken
+            (
                 issuer: tokenOptions.Issuer,
                 audience: tokenOptions.Audience,
                 expires: _accessTokenExpiration,

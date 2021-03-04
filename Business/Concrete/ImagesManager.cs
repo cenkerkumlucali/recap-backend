@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Business.BusinessAspects.Autofac;
+using Core.Aspect.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -24,6 +26,7 @@ namespace Business.Concrete
             _carImageDAL = carImageDAL;
         }
         [ValidationAspect(typeof(ImagesValidator))]
+        [SecuredOperation("admin")]
         public IResult Add(IFormFile file, Images carImage)
         {
             IResult result = BusinessRules.Run(CheckImageLimitExceeded(carImage.CarId),CheckImageLimitExceeded(carImage.CarId));
@@ -37,6 +40,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
         [ValidationAspect(typeof(ImagesValidator))]
+        [SecuredOperation("admin")]
         public IResult Delete(Images carImage)
         {
             IResult result = BusinessRules.Run(CarImageDelete(carImage));
@@ -48,6 +52,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
         [ValidationAspect(typeof(ImagesValidator))]
+        [SecuredOperation("admin")]
         public IResult Update(IFormFile file, Images carImage)
         {
             carImage.ImagePath = FileHelper.Update(_carImageDAL.Get(p => p.Id == carImage.Id).ImagePath, file);
@@ -60,17 +65,20 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Images>(_carImageDAL.Get(p => p.Id == id));
         }
+        [CacheAspect]
         public IDataResult<List<Images>> GetAll()
         {
             return new SuccessDataResult<List<Images>>(_carImageDAL.GetAll());
         }
         [ValidationAspect(typeof(ImagesValidator))]
+        [CacheAspect]
         public IDataResult<List<Images>> GetImagesByCarId(int id)
         {
             return new SuccessDataResult<List<Images>>(CheckIfCarImageNull(id));
         }
 
         //business rules
+
         private IResult CheckImageLimitExceeded(int carid)
         {
             var carImagecount = _carImageDAL.GetAll(p => p.CarId == carid).Count;
