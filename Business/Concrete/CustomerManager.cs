@@ -22,7 +22,7 @@ namespace Business.Concrete
        [CacheAspect]
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),"Customer Listed");
         }
        [CacheAspect]
         public IDataResult<Customer> GetById(int customerId)

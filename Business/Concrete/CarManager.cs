@@ -18,6 +18,7 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        private ICarService _carServiceImplementation;
 
         public CarManager(ICarDal ıCarDal)
         {
@@ -82,20 +83,39 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            if (DateTime.Now.Hour == 14)
+            if (DateTime.Now.Hour == 3)
             {
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),Messages.CarListed);
         }
+
+        public IDataResult<List<Car>> GetByCategoryId(int categoryId)
+        {
+            return null;
+            //return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CategoryId == categoryId));
+        }
+
         [CacheAspect]
 
         public List<Car> GetCarsByColorId(int colorId)
         {
             return _carDal.GetAll(c => c.ColorId == colorId);
         }
+        public IDataResult<List<CarDetailDto>> GetCarsDetailByBrandId(int brandId)
+        {
+            List<CarDetailDto> carDetails = _carDal.GetCarsDetail(p => p.BrandId == brandId);
+            if (carDetails == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>("");
+            }
+            else
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(carDetails, "");
+            }
+        }
 
-       
+
 
     }
 }

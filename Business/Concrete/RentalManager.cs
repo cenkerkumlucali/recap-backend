@@ -35,11 +35,6 @@ namespace Business.Concrete
         [SecuredOperation("admin")]
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.GetCarDetails(r => r.CarId == rental.CarId && r.ReturnDate == null);
-            if (result.Count>0)
-            {
-                return new ErrorResult(Messages.RentalAddedError);
-            }
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.CarAdded);
         }
@@ -57,9 +52,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalUpdated);
         }
 
-        public IDataResult<List<RentalDetailDto>> GetRentalDetail(Expression<Func<Rental, bool>> filter = null)
+        public IDataResult<List<RentalDetailDto>> GetRentalDetail()
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetCarDetails());
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetCarDetails(),"Detaylar listelendi");
         }
     }
 }
