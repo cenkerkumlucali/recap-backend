@@ -81,30 +81,44 @@ namespace Business.Concrete
         }
         [CacheAspect]
 
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetail(int carId)
         {
-            if (DateTime.Now.Hour == 3)
+            if (DateTime.Now.Hour == 5)
             {
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),Messages.CarListed);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(cardetail => cardetail.CarId == carId));
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetByCategoryId(int categoryId)
         {
             return null;
             //return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CategoryId == categoryId));
         }
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), "");
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarsDetailByColorId(int colorId)
+        {
+            List<CarDetailDto> carDetails = _carDal.GetCarDetails(p => p.ColorId == colorId);
+            if (carDetails == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>("");
+            }
+            else
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(carDetails, "");
+            }
+        }
 
         [CacheAspect]
 
-        public List<Car> GetCarsByColorId(int colorId)
-        {
-            return _carDal.GetAll(c => c.ColorId == colorId);
-        }
+
         public IDataResult<List<CarDetailDto>> GetCarsDetailByBrandId(int brandId)
         {
-            List<CarDetailDto> carDetails = _carDal.GetCarsDetail(p => p.BrandId == brandId);
+            List<CarDetailDto> carDetails = _carDal.GetCarDetails(p => p.BrandId == brandId);
             if (carDetails == null)
             {
                 return new ErrorDataResult<List<CarDetailDto>>("");

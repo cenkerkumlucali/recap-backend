@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _imagesService.Get(id);
+            var result = _imagesService.GetImagesByCarId(id);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -74,11 +74,11 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
+        
         [HttpGet("getimagesbycarid")]
-        public IActionResult GetImagesById(int id)
+        public IActionResult GetImagesById([FromForm(Name = ("CarId"))] int carId)
         {
-            var result = _imagesService.GetImagesByCarId(id);
+            var result = _imagesService.GetImagesByCarId(carId);
             if (result.Success)
             {
                 return Ok(result);
