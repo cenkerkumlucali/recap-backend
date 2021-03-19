@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace WebAPI.Controllers
 {
@@ -134,6 +135,16 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
 
+        }
+        [HttpGet("getcarsfilterdetails")]
+        public IActionResult GetCarsDetails([FromQuery] CarDetailFilterDto filterDto)
+        {
+            var result = _carService.GetCarsFiltreDetails(filterDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
     }

@@ -35,6 +35,31 @@ namespace DataAccess.Concrete.EntityFramework
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
             }
         }
+        public List<CarDetailDto> GetAllCarDetailsByFilter(CarDetailFilterDto filterDto)
+        {
+            using (NorthwindContext context = new NorthwindContext())
+            {
+                var filterExpression = GetFilterExpression(filterDto);
+                var result = from car in filterExpression == null ? context.Cars : context.Cars.Where(filterExpression)
+                    join color in context.Colors on car.ColorId equals color.ColorId
+                    join brand in context.Brands on car.BrandId equals brand.BrandId
+                    join carImage in context.CarImages on car.CarId equals carImage.CarId
+                             select new CarDetailDto
+                    {
+                        CarId = car.CarId,
+                        BrandId = brand.BrandId,
+                        ColorId = color.ColorId,
+                        ImagePath = carImage.ImagePath,
+                        ModelYear = car.ModelYear,
+                        BrandName = brand.BrandName,
+                        Description = car.Description,
+                        ColorName = color.ColorName,
+                        DailyPrice = car.DailyPrice
+                    };
+                return result.ToList(); // tolist yapmadan query'e dönüştürüp verileri çekmez.
+
+            }
+        }
         //public List<CarDetailDto> GetCarsDetail(Expression<Func<Car, bool>> filter = null)
         //{
         //    using (NorthwindContext context = new NorthwindContext())

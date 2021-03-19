@@ -14,10 +14,10 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             EfRentalDal efRentalDal = new EfRentalDal();
-            var result =efRentalDal.GetCarDetails();
+            var result =efRentalDal.GetAllRentalDetails();
             foreach (var r in result)    
             {
-                Console.WriteLine(r.UserName);
+                Console.WriteLine(r.CustomerFullName);
             }
             //EfRentalDal rentalDal=new EfRentalDal();
             //foreach (var r in rentalDal.GetCarDetails())

@@ -8,6 +8,7 @@ using Core.Aspect.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -53,5 +54,9 @@ namespace Business.Concrete
            return new SuccessResult(Messages.CustomerUpdated);
 
        }
-   }
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetailDto(), "");
+        }
+    }
 }

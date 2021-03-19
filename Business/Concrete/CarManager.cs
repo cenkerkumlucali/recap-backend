@@ -68,6 +68,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id));
         }
+
+        public IDataResult<List<CarDetailDto>> GetCarsFiltreDetails(CarDetailFilterDto filterDto)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailsByFilter(filterDto));
+        }
+
         [CacheAspect]
         public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
         {
