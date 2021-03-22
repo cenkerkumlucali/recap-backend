@@ -9,12 +9,12 @@ Genel olarak proje katmanlı mimariye uygun şekilde tasarlanıp OOP olarak enti
 - [ConsoleUI](https://github.com/cenkerkumlucali/ReCapProject/tree/master/ConsoleUI) 
 
 #### Prerequest 
-                
-1. EntityFrameworkCore.SqlServer 3.1.11
-2. FluentValidation 7.3.3
-3. Autofac 6.1.0
-4. Autofac.Extensions.DependencyInjection 7.1.0
-5. Autofac.Extras.DynamicProxy 6.0.0
+
+ - [ ] EntityFrameworkCore.SqlServer 3.1.11
+ - [ ]  FluentValidation 7.3.3
+ - [ ] Autofac 6.1.0
+ - [ ] Autofac.Extensions.DependencyInjection 7.1.0
+ - [ ] Autofac.Extras.DynamicProxy 6.0.0 
                 
 ----
                     
