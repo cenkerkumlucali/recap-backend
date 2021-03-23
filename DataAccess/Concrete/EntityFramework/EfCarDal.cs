@@ -18,15 +18,15 @@ namespace DataAccess.Concrete.EntityFramework
                 var result = from car in context.Cars
                     join color in context.Colors on car.ColorId equals color.ColorId
                     join brand in context.Brands on car.BrandId equals brand.BrandId
-                    join carImage in context.CarImages on car.CarId equals carImage.CarId
+                   // join carImage in context.CarImages on car.CarId equals carImage.CarId
                     select new CarDetailDto()
                     {
                         CarId = car.CarId,
-                        ImagePath = carImage.ImagePath,
+                        Images = 
+                        (from i in context.CarImages where i.CarId == car.CarId select i.ImagePath).ToList(),
                         Description = car.Description,
                         BrandId = brand.BrandId,
                         BrandName = brand.BrandName,
-                        CarImageDate = carImage.Date,
                         ColorId = color.ColorId,
                         ColorName = color.ColorName,
                         DailyPrice = car.DailyPrice,
@@ -49,8 +49,9 @@ namespace DataAccess.Concrete.EntityFramework
                         CarId = car.CarId,
                         BrandId = brand.BrandId,
                         ColorId = color.ColorId,
-                        ImagePath = carImage.ImagePath,
-                        ModelYear = car.ModelYear,
+                        Images =
+                            (from i in context.CarImages where i.CarId == car.CarId select i.ImagePath).ToList(),
+                                 ModelYear = car.ModelYear,
                         BrandName = brand.BrandName,
                         Description = car.Description,
                         ColorName = color.ColorName,

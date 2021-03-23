@@ -1,10 +1,13 @@
-﻿using Castle.DynamicProxy.Generators.Emitters;
+﻿using System.ComponentModel.DataAnnotations;
+using Castle.DynamicProxy.Generators.Emitters;
 using Core.Entities;
 
 namespace Entities.Concrete
 {
+    
     public class Car:IEntity
     {
+        [ConcurrencyCheck]
         public int CarId { get; set; }
         public int ColorId { get; set; }
         public int BrandId { get; set; }

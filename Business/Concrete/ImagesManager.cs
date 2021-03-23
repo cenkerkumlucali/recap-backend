@@ -121,7 +121,7 @@ namespace Business.Concrete
         {
             try
             {
-                string path = @"\uploads\logo.jpg";
+                string path = @"\images\logo.jpg";
                 var result = _carImageDAL.GetAll(c => c.CarId == id).Any();
                 if (!result)
                 {
