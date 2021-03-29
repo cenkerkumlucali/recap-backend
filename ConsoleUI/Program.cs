@@ -155,7 +155,7 @@ namespace ConsoleUI
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             foreach (var r in rentalManager.GetAll().Data)
             {
-                Console.WriteLine(r.CarId + " " + r.CustomerId + " " + r.Id + " " + r.RentDate + " " + r.ReturnDate);
+                Console.WriteLine(r.CarId + " " + r.UserId + " " + r.Id + " " + r.RentDate + " " + r.ReturnDate);
             }
         }
 
@@ -165,7 +165,7 @@ namespace ConsoleUI
            var result= rentalManager.Add(new Rental()
             {
                 CarId = 1,
-                CustomerId = 2,
+                UserId = 2,
                 RentDate = new DateTime(2021, 2, 09),
                 ReturnDate = new DateTime(2021,02,12)
                 

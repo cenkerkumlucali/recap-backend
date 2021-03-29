@@ -58,9 +58,9 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.GetAll(r => r.CarId == carId).LastOrDefault());
         }
 
-        public IDataResult<List<Rental>> GetAllByCustomerId(int customerId)
+        public IDataResult<List<Rental>> GetAllByCustomerId(int userId)
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.CustomerId == customerId));
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.UserId == userId));
         }
 
         public IDataResult<Rental> GetById(int id)
@@ -97,5 +97,9 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetAllRentalDetails());
         }
+        //private IResult CheckIfFindeksScoreEnough(string productName)
+        //{
+        //   var result 
+        //}
     }
 }

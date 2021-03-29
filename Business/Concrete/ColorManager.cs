@@ -31,12 +31,13 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(ColorValidator))]
-        //[SecuredOperation("admin")]
+        [SecuredOperation("admin")]
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
+
         [SecuredOperation("admin")]
         public IResult Delete(Color color)
         {

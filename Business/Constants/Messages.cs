@@ -45,5 +45,13 @@ namespace Business.Constants
         public static string AccessTokenCreated="Access Token başarıyla oluşturuldu";
         public static string AuthorizationDenied = "Yetkiniz yok.";
         public static string CarListed="Arabalar listelendi";
+        public static string FindeksAdded="Findeks eklendi";
+        public static string FindeksDeleted="Findeks güncellendi";
+        public static string FindeksUpdated="Findeks silindi";
+        public static string CarFindeksAdded="Araba findeks eklendi";
+        public static string CarFindeksDeleted="Araba findeks silindi";
+        public static string CarFindeksUpdated="Araba findeks güncellendi";
+        public static string FindeksScoreMax="Findeks skoru 1900 den büyük olamaz";
+        public static string FindeksScoreSuccesful="Başarılı";
     }
 }
