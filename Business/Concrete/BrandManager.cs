@@ -35,13 +35,14 @@ namespace Business.Concrete
             _brandDal.Add(brand);
             return new SuccessResult(Messages.CarAdded);
         }
+        [CacheRemoveAspect("IBrandService.Get")]
         [SecuredOperation("admin")]
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
             return new SuccessResult(Messages.BrandDeleted);
         }
-
+        [CacheRemoveAspect("IBrandService.Get")]
         [ValidationAspect(typeof(BrandValidator))]
         [SecuredOperation("admin")]
         public IResult Update(Brand brand)

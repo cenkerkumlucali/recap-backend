@@ -10,7 +10,7 @@ namespace Core.Utilities.Helpers
 
         private static string _currentDirectory = Environment.CurrentDirectory + "\\wwwroot";
         private static string _folderName = "\\images\\";
-
+            
         public static IResult Upload(IFormFile file)
         {
             var fileExists = CheckFileExists(file);

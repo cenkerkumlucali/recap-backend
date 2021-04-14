@@ -7,7 +7,7 @@ namespace Entities.Concrete
     
     public class Car:IEntity
     {
-        [ConcurrencyCheck]
+
         public int CarId { get; set; }
         public int ColorId { get; set; }
         public int BrandId { get; set; }

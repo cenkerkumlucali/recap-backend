@@ -45,7 +45,7 @@ namespace Business.Concrete
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
-
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult EditProfil(User user,string password)
         {
             byte[] passwordHash, passwordSalt;
